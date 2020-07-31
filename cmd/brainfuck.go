@@ -17,7 +17,7 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-	if os.Args[2] == "--debug" || os.Args[2] == "-d" {
+	if len(os.Args) > 2 && (os.Args[2] == "--debug" || os.Args[2] == "-d") {
 		brainfuck.Debug = true
 	} else {
 		fmt.Println("Usage: brainfuck <path to brainfuck file> [-d | --debug]")
