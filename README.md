@@ -1,5 +1,9 @@
 # Brainfuck interpreter
 
+## Usage
+
+`brainfuck <path to brainfuck file> [-d | --debug]`
+
 ## What is brainfuck?
 
 [Wikipedia](https://en.wikipedia.org/wiki/Brainfuck) says:  
@@ -24,6 +28,8 @@
 | [           | if the byte at the data pointer is zero, then instead of moving the instruction pointer forward to the next command, jump it forward to the command after the matching ] command. |
 | ]           | if the byte at the data pointer is nonzero, then instead of moving the instruction pointer forward to the next command, jump it back to the command after the matching [ command. |
 
+Every other character will be treated as a comment.
+
 ## What the heck is this?
 
 This is a brainfuck interpreter written in Go (aka GoLang), the only thing missing is the read function.
@@ -33,6 +39,7 @@ the command line arguments and starts execution.
 
 ## TODO
 
-- [ ] Implement read function
+- [ ] Implement `read()`
+- [ ] Create a release with binaries once `read()` is implemented
 - [ ] Add documentation
 - [ ] Add unit tests
