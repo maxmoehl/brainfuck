@@ -15,7 +15,6 @@ var (
 	cursor        int
 	reader        *bufio.Reader
 	debug         bool
-	interactive   bool
 )
 
 const (
@@ -37,7 +36,6 @@ func init() {
 
 func Run(input string, d bool, i bool) {
 	debug = d
-	interactive = false
 	run(stringToByteArray(input))
 	if i {
 		RunShell(d)
@@ -46,7 +44,6 @@ func Run(input string, d bool, i bool) {
 
 func RunShell(d bool) {
 	debug = d
-	interactive = true
 	for {
 		fmt.Print("- ")
 		b, err := reader.ReadBytes('\n')
