@@ -1,27 +1,36 @@
 package main
 
 import (
-	"fmt"
-	"github.com/maxmoehl/brainfuck"
 	"io/ioutil"
 	"os"
+
+	"github.com/maxmoehl/brainfuck"
+	"github.com/mkideal/cli"
 )
 
+type Args struct {
+	cli.Helper
+	Debug       bool   `cli:"d,debug" usage:"enables the debug mode to print additional information" dft:"false"`
+	Interactive bool   `cli:"i,interactive" usage:"if a file is given this enables the console after interpreting the file" dft:"false"`
+	File        string `cli:"f,file" usage:"path to a file containing brainfuck code"`
+}
+
 func main() {
-	if len(os.Args) < 2 || len(os.Args) > 3 {
-		fmt.Println("Usage: brainfuck <path to brainfuck file> [-d | --debug]")
-		os.Exit(1)
-	}
-	filePath := os.Args[1]
-	code, err := ioutil.ReadFile(filePath)
+	os.Exit(cli.Run(new(Args), func(ctx *cli.Context) error {
+		args := ctx.Argv().(*Args)
+		if args.File == "" {
+			brainfuck.RunShell(args.Debug)
+		} else {
+			readAndRun(args.File, args.Debug, args.Interactive)
+		}
+		return nil
+	}))
+}
+
+func readAndRun(path string, debug bool, interactive bool) {
+	code, err := ioutil.ReadFile(path)
 	if err != nil {
 		panic(err.Error())
 	}
-	if len(os.Args) > 2 && (os.Args[2] == "--debug" || os.Args[2] == "-d") {
-		brainfuck.Debug = true
-	} else if len(os.Args) > 2 {
-		fmt.Println("Usage: brainfuck <path to brainfuck file> [-d | --debug]")
-		os.Exit(1)
-	}
-	brainfuck.Run(string(code))
+	brainfuck.Run(string(code), debug, interactive)
 }

@@ -30,6 +30,9 @@
 
 Every other character will be treated as a comment.
 
+For the interactive shell the following non-standard commands are allowed:
+- `exit` to exit the program
+
 ## What the heck is this?
 
 This is a brainfuck interpreter written in Go (aka GoLang), the only thing missing is the read function.
@@ -39,7 +42,7 @@ the command line arguments and starts execution.
 
 ## TODO
 
-- [ ] Implement `read()`
+- [x] Implement `read()`
 - [ ] Create a release with binaries once `read()` is implemented
 - [ ] Add documentation
 - [ ] Add unit tests
