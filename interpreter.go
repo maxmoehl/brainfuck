@@ -57,7 +57,7 @@ func RunShell(d bool) {
 		}
 		run(stringToByteArray(s))
 		// If there was at least one print operation append a new line
-		if bytes.Contains(b, []byte{comma}) {
+		if bytes.Contains(b, []byte{dot}) && !debug {
 			fmt.Print("\n")
 		}
 
