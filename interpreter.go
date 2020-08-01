@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	memory        []int
+	memory        []byte
 	memoryPointer int
 	commands      []byte
 	cursor        int
@@ -30,7 +30,7 @@ const (
 
 func init() {
 	memoryPointer = 0
-	memory = make([]int, 1, 100)
+	memory = make([]byte, 1, 100)
 	reader = bufio.NewReader(os.Stdin)
 }
 
@@ -139,9 +139,9 @@ func exec(b byte) {
 // filled with output from each step.
 func print() {
 	if debug {
-		fmt.Printf("out: %v\n", string(rune(memory[memoryPointer])))
+		fmt.Printf("out: %v\n", string(memory[memoryPointer]))
 	} else {
-		fmt.Printf("%v", string(rune(memory[memoryPointer])))
+		fmt.Printf("%v", string(memory[memoryPointer]))
 	}
 }
 
@@ -160,7 +160,7 @@ func read() {
 	if len(b) > 1 && debug {
 		fmt.Print("warning: multiple bytes were submitted\n")
 	}
-	memory[memoryPointer] = int(b[0])
+	memory[memoryPointer] = b[0]
 }
 
 func increase() {
