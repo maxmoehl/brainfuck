@@ -34,6 +34,9 @@ func init() {
 	reader = bufio.NewReader(os.Stdin)
 }
 
+// Executes a brainfuck script. If i (interactive) is true
+// the interpreter will launch a shell with the session that
+// resulted from the script.
 func Run(input string, d bool, i bool) {
 	debug = d
 	run(stringToByteArray(input))
@@ -42,6 +45,10 @@ func Run(input string, d bool, i bool) {
 	}
 }
 
+// Launches an interactive shell in which the user can type
+// in instructions to execute them. Can also be entered by
+// forcing the interpreter to launch the shell after executing
+// a script.
 func RunShell(d bool) {
 	debug = d
 	for {
@@ -75,8 +82,8 @@ func run(input []byte) {
 	}
 }
 
-// Converts the string to a byte array and drops any rune
-// that is not an instruction. The input needs to be a string
+// Converts the string to a byte array and drops any bytes
+// that are not an instruction. The input needs to be a string
 // because in a byte array we wouldn't be able to determine
 // the bounds of a single character because Go uses UTF-8.
 func stringToByteArray(s string) (commands []byte) {
@@ -163,14 +170,25 @@ func read() {
 	memory[memoryPointer] = b[0]
 }
 
+// Operation for '+'
+//
+// Increases the byte the memoryPointer is currently
+// pointing at by one.
 func increase() {
 	memory[memoryPointer]++
 }
 
+// Operation for '-'
+//
+// Decrease the byte the memoryPointer is currently
+// pointing at by one.
 func decrease() {
 	memory[memoryPointer]--
 }
 
+// Operation for '>'
+//
+// Move the memoryPointer one position to the right.
 func moveRight() {
 	// If memory pointer would be out of bounds, append a new int
 	if !(memoryPointer+1 < len(memory)) {
@@ -179,6 +197,12 @@ func moveRight() {
 	memoryPointer++
 }
 
+// Operation for '<'
+//
+// Move the memoryPointer one position to the right.
+// The pointer cannot be moved below 0 and will silently
+// fail if you try to. In debug mode it will write a
+// warning.
 func moveLeft() {
 	if memoryPointer > 0 {
 		memoryPointer--

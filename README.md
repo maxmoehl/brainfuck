@@ -44,5 +44,5 @@ the command line arguments and starts execution.
 
 - [x] Implement `read()`
 - [ ] Create a release with binaries once `read()` is implemented
-- [ ] Add documentation
+- [x] Add documentation
 - [ ] Add unit tests
