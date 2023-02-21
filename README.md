@@ -2,7 +2,7 @@
 
 ## Usage
 
-`brainfuck <path to brainfuck file> [-d | --debug]`
+`brainfuck [ -file <path to brainfuck file> ] [ -debug ] [ -interactive ]`
 
 ## What is brainfuck?
 
@@ -37,12 +37,6 @@ For the interactive shell the following non-standard commands are allowed:
 
 This is a brainfuck interpreter written in Go (aka GoLang), the only thing missing is the read function.
 
-The main part is in `interpreter.go`, `cmd/brainfuck.go` parses
+The main part is in `interpreter.go`, `brainfuck/brainfuck.go` parses
 the command line arguments and starts execution.
 
-## TODO
-
-- [x] Implement `read()`
-- [ ] Create a release with binaries once `read()` is implemented
-- [x] Add documentation
-- [ ] Add unit tests
