@@ -34,7 +34,7 @@ func init() {
 	reader = bufio.NewReader(os.Stdin)
 }
 
-// Executes a brainfuck script. If i (interactive) is true
+// Run a brainfuck script. If i (interactive) is true
 // the interpreter will launch a shell with the session that
 // resulted from the script.
 func Run(input string, d bool, i bool) {
@@ -45,7 +45,7 @@ func Run(input string, d bool, i bool) {
 	}
 }
 
-// Launches an interactive shell in which the user can type
+// RunShell runs an interactive shell in which the user can type
 // in instructions to execute them. Can also be entered by
 // forcing the interpreter to launch the shell after executing
 // a script.
@@ -71,7 +71,7 @@ func RunShell(d bool) {
 	}
 }
 
-// Executes a sequence of bytes one by one.
+// run executes a sequence of bytes one by one.
 // Each call to run sets the commands slice to the
 // input passed and resets the cursor to 0
 func run(input []byte) {
@@ -82,7 +82,7 @@ func run(input []byte) {
 	}
 }
 
-// Converts the string to a byte array and drops any bytes
+// stringToByteArray converts a string to a byte array and drops any bytes
 // that are not an instruction. The input needs to be a string
 // because in a byte array we wouldn't be able to determine
 // the bounds of a single character because Go uses UTF-8.
@@ -111,7 +111,7 @@ func stringToByteArray(s string) (commands []byte) {
 	return
 }
 
-// Executes a single instruction. If debug is true, the action to be executed,
+// exec executes a single instruction. If debug is true, the action to be executed,
 // the memory and the memoryPointer will be printed.
 func exec(b byte) {
 	if debug {
@@ -139,7 +139,7 @@ func exec(b byte) {
 	}
 }
 
-// Operation for '.'
+// print is the operation for '.'
 //
 // Prints a single character to the standard output. If debug is true
 // the output will be prefixed with "out: " because the console is already
@@ -152,7 +152,7 @@ func print() {
 	}
 }
 
-// Operation for ','
+// read is the operation for ','
 //
 // Reads a line form the standard input. If more than one byte
 // was provided only the first byte will be recognized, if debug
@@ -170,7 +170,7 @@ func read() {
 	memory[memoryPointer] = b[0]
 }
 
-// Operation for '+'
+// increase is the operation for '+'
 //
 // Increases the byte the memoryPointer is currently
 // pointing at by one.
@@ -178,7 +178,7 @@ func increase() {
 	memory[memoryPointer]++
 }
 
-// Operation for '-'
+// decrease is the operation for '-'
 //
 // Decrease the byte the memoryPointer is currently
 // pointing at by one.
@@ -186,7 +186,7 @@ func decrease() {
 	memory[memoryPointer]--
 }
 
-// Operation for '>'
+// moveRight is the operation for '>'
 //
 // Move the memoryPointer one position to the right.
 func moveRight() {
@@ -197,7 +197,7 @@ func moveRight() {
 	memoryPointer++
 }
 
-// Operation for '<'
+// moveLeft is the operation for '<'
 //
 // Move the memoryPointer one position to the right.
 // The pointer cannot be moved below 0 and will silently
@@ -211,7 +211,7 @@ func moveLeft() {
 	}
 }
 
-// Operation for '['
+// startLoop is the operation for '['
 //
 // If the value of the current address is 0 the cursor is moved
 // to the corresponding rBracket otherwise the program
@@ -238,7 +238,7 @@ func startLoop() {
 	}
 }
 
-// Operation for ']'
+// endLoop is the operation for ']'
 //
 // If the value of the current address is 0, this function does nothing
 // and the pointer gets moved to the next position. If it is not zero
