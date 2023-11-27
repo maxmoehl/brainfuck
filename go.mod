@@ -1,3 +1,3 @@
-module github.com/maxmoehl/brainfuck
+module moehl.dev/brainfuck
 
 go 1.14
